@@ -1,9 +1,8 @@
-import React from 'react';
-import { ReactNode } from 'react';
-import { motion, MotionProps } from 'framer-motion';
+import React, { ReactNode, JSX } from 'react';
 import { useScrollAnimation } from '@/lib/hooks/useScrollAnimation';
 import { AnimationVariants, fadeUpVariants } from '@/lib/animation';
 import { cn } from '@/lib/utils';
+import { motion, MotionProps } from 'framer-motion';
 
 interface AnimatedElementProps extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
