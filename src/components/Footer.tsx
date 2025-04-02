@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { Github, Linkedin, Twitter, Mail, ExternalLink, Heart, ArrowUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { AnimatedElement } from '@/components/ui/AnimatedElement';

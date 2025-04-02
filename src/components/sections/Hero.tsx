@@ -2,25 +2,32 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowDown, Github, Linkedin, Twitter, FileText, Send, Terminal, Code, Database } from 'lucide-react';
-import { useEffect, useState, useRef } from 'react';
+import { ArrowDown, Github, Linkedin, Twitter, FileText, Send } from 'lucide-react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import { AnimatedElement, AnimatedGroup } from '@/components/ui/AnimatedElement';
-import { fadeUpVariants, slideInRightVariants, slideInLeftVariants, scaleUpVariants } from '@/lib/animation';
-import Link from 'next/link';
+import { fadeUpVariants, slideInRightVariants, slideInLeftVariants } from '@/lib/animation';
 
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef<HTMLDivElement>(null);
   const [bubbles, setBubbles] = useState<Array<{id: number, x: number, y: number, size: number, speed: number}>>([]);
+  
+  // Typing effects
+  const [isTypingName, setIsTypingName] = useState(true);
+  const [typedName, setTypedName] = useState('');
+  const fullName = 'Suraj Yaligar';
+  
   const [isTyping, setIsTyping] = useState(true);
   const [typedText, setTypedText] = useState('');
   const [currentPhrase, setCurrentPhrase] = useState(0);
-  const phrases = [
+  
+  // Use useMemo to prevent the phrases array from being recreated on every render
+  const phrases = useMemo(() => [
     'Building Web Applications',
     'Creating Mobile Solutions',
     'Developing AI Projects',
     'Designing UI/UX Experiences'
-  ];
+  ], []);
 
   useEffect(() => {
     // Create initial bubbles
@@ -60,36 +67,54 @@ export default function Hero() {
       clearInterval(interval);
     };
   }, []);
-
-  // Typing effect
+  
+  // Name typing effect
   useEffect(() => {
-    const currentPhraseText = phrases[currentPhrase];
-    
-    if (isTyping) {
-      if (typedText.length < currentPhraseText.length) {
+    if (isTypingName) {
+      if (typedName.length < fullName.length) {
         const timeout = setTimeout(() => {
-          setTypedText(currentPhraseText.substring(0, typedText.length + 1));
-        }, 80);
+          setTypedName(fullName.substring(0, typedName.length + 1));
+        }, 100);
         return () => clearTimeout(timeout);
       } else {
-        setIsTyping(false);
-        const timeout = setTimeout(() => {
-          setIsTyping(false);
-        }, 2000);
-        return () => clearTimeout(timeout);
-      }
-    } else {
-      if (typedText.length > 0) {
-        const timeout = setTimeout(() => {
-          setTypedText(typedText.substring(0, typedText.length - 1));
-        }, 50);
-        return () => clearTimeout(timeout);
-      } else {
-        setIsTyping(true);
-        setCurrentPhrase((currentPhrase + 1) % phrases.length);
+        // Keep name displayed once typed fully
+        setIsTypingName(false);
       }
     }
-  }, [typedText, isTyping, currentPhrase, phrases]);
+  }, [typedName, isTypingName, fullName]);
+
+  // Skills typing effect
+  useEffect(() => {
+    // Start skills typing after name is completed
+    if (!isTypingName) {
+      const currentPhraseText = phrases[currentPhrase];
+      
+      if (isTyping) {
+        if (typedText.length < currentPhraseText.length) {
+          const timeout = setTimeout(() => {
+            setTypedText(currentPhraseText.substring(0, typedText.length + 1));
+          }, 80);
+          return () => clearTimeout(timeout);
+        } else {
+          setIsTyping(false);
+          const timeout = setTimeout(() => {
+            setIsTyping(false);
+          }, 2000);
+          return () => clearTimeout(timeout);
+        }
+      } else {
+        if (typedText.length > 0) {
+          const timeout = setTimeout(() => {
+            setTypedText(typedText.substring(0, typedText.length - 1));
+          }, 50);
+          return () => clearTimeout(timeout);
+        } else {
+          setIsTyping(true);
+          setCurrentPhrase((currentPhrase + 1) % phrases.length);
+        }
+      }
+    }
+  }, [typedText, isTyping, currentPhrase, phrases, isTypingName]);
 
   const scrollToContact = () => {
     const contactSection = document.getElementById('contact');
@@ -103,21 +128,6 @@ export default function Hero() {
     if (projectsSection) {
       projectsSection.scrollIntoView({ behavior: 'smooth' });
     }
-  };
-
-  // Floating icons animation variants
-  const floatingIconVariants = {
-    initial: { y: 0 },
-    animate: (custom: number) => ({
-      y: [0, -15, 0],
-      transition: {
-        duration: 3,
-        repeat: Infinity,
-        repeatType: "reverse",
-        delay: custom * 0.3,
-        ease: "easeInOut"
-      }
-    })
   };
 
   return (
@@ -158,37 +168,6 @@ export default function Hero() {
           mass: 0.5
         }}
       />
-
-      {/* Floating skill icons */}
-      <div className="absolute inset-0 z-2 pointer-events-none">
-        <motion.div
-          className="absolute left-[15%] top-[30%] bg-white/10 backdrop-blur-md p-4 rounded-full shadow-xl"
-          custom={0}
-          variants={floatingIconVariants}
-          initial="initial"
-          animate="animate"
-        >
-          <Code className="h-8 w-8 text-primary/90" />
-        </motion.div>
-        <motion.div
-          className="absolute right-[20%] top-[20%] bg-white/10 backdrop-blur-md p-4 rounded-full shadow-xl"
-          custom={1}
-          variants={floatingIconVariants}
-          initial="initial"
-          animate="animate"
-        >
-          <Terminal className="h-8 w-8 text-violet-400" />
-        </motion.div>
-        <motion.div
-          className="absolute left-[25%] bottom-[25%] bg-white/10 backdrop-blur-md p-4 rounded-full shadow-xl"
-          custom={2}
-          variants={floatingIconVariants}
-          initial="initial"
-          animate="animate"
-        >
-          <Database className="h-8 w-8 text-teal-400" />
-        </motion.div>
-      </div>
       
       <div className="container mx-auto px-4 max-w-6xl relative z-10 py-20 flex flex-col items-center justify-center">
         <div className="text-center max-w-3xl">
@@ -196,8 +175,10 @@ export default function Hero() {
             variants={fadeUpVariants}
             threshold={0.1}
           >
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 text-white drop-shadow-md">
-              Hi, I&apos;m <span className="bg-white text-transparent bg-clip-text">Suraj Yaligar</span>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-white drop-shadow-md">
+              Hi, I&apos;m <span className="bg-gradient-to-r from-primary to-violet-400 text-transparent bg-clip-text">
+                {typedName}<span className={isTypingName ? "animate-blink" : "opacity-0"}>|</span>
+              </span>
             </h1>
           </AnimatedElement>
           
@@ -205,48 +186,77 @@ export default function Hero() {
             variants={fadeUpVariants}
             threshold={0.1}
             delay={0.2}
+            className="mb-6"
           >
             <h2 className="text-xl md:text-2xl lg:text-3xl font-medium mb-2 text-white/90 drop-shadow-md">
               Full Stack Developer & Computer Engineering Student
             </h2>
           </AnimatedElement>
+
+          <AnimatedElement
+            variants={fadeUpVariants}
+            threshold={0.1}
+            delay={0.3}
+            className="h-12 flex items-center justify-center mb-8"
+          >
+            <span className="inline-block text-lg md:text-xl text-primary-300 font-light">
+              <span className="text-white/70">I specialize in </span>
+              <span className="text-primary font-medium">{typedText}</span>
+              <span className="animate-blink">|</span>
+            </span>
+          </AnimatedElement>
         </div>
         
         {/* Social Media Links */}
-        <AnimatedElement
-          variants={fadeUpVariants}
+        <AnimatedGroup
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
           threshold={0.1}
-          delay={0.3}
-          className="flex gap-5 mb-6"
+          delay={0.4}
+          className="flex gap-6 mb-12 mt-4"
         >
-          <a 
-            href="https://github.com/yourusername" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="bg-white/10 hover:bg-white/20 p-3.5 rounded-full transition-all duration-300 text-white backdrop-blur-sm hover:text-primary hover:scale-110 shadow-lg"
-            aria-label="GitHub"
-          >
-            <Github className="h-5 w-5" />
-          </a>
-          <a 
-            href="https://linkedin.com/in/yourusername" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="bg-white/10 hover:bg-white/20 p-3.5 rounded-full transition-all duration-300 text-white backdrop-blur-sm hover:text-primary hover:scale-110 shadow-lg"
-            aria-label="LinkedIn"
-          >
-            <Linkedin className="h-5 w-5" />
-          </a>
-          <a 
-            href="https://twitter.com/yourusername" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="bg-white/10 hover:bg-white/20 p-3.5 rounded-full transition-all duration-300 text-white backdrop-blur-sm hover:text-primary hover:scale-110 shadow-lg"
-            aria-label="Twitter"
-          >
-            <Twitter className="h-5 w-5" />
-          </a>
-        </AnimatedElement>
+          <AnimatedElement variants={fadeUpVariants}>
+            <a 
+              href="https://github.com/yourusername" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-white/10 hover:bg-white/20 p-3.5 rounded-full transition-all duration-300 text-white backdrop-blur-sm hover:text-primary hover:scale-110 shadow-lg"
+              aria-label="GitHub"
+            >
+              <Github className="h-5 w-5" />
+            </a>
+          </AnimatedElement>
+          
+          <AnimatedElement variants={fadeUpVariants}>
+            <a 
+              href="https://linkedin.com/in/yourusername" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-white/10 hover:bg-white/20 p-3.5 rounded-full transition-all duration-300 text-white backdrop-blur-sm hover:text-primary hover:scale-110 shadow-lg"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="h-5 w-5" />
+            </a>
+          </AnimatedElement>
+          
+          <AnimatedElement variants={fadeUpVariants}>
+            <a 
+              href="https://twitter.com/yourusername" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-white/10 hover:bg-white/20 p-3.5 rounded-full transition-all duration-300 text-white backdrop-blur-sm hover:text-primary hover:scale-110 shadow-lg"
+              aria-label="Twitter"
+            >
+              <Twitter className="h-5 w-5" />
+            </a>
+          </AnimatedElement>
+        </AnimatedGroup>
         
         {/* Buttons */}
         <AnimatedGroup
@@ -260,14 +270,14 @@ export default function Hero() {
           }}
           threshold={0.1}
           delay={0.5}
-          className="flex flex-col sm:flex-row gap-4 mb-12"
+          className="flex flex-col sm:flex-row gap-6 mb-16"
         >
           <AnimatedElement variants={slideInLeftVariants}>
             <Button 
               onClick={scrollToContact}
-              className="rounded-full px-6 py-6 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-primary to-violet-500 hover:from-primary hover:to-violet-500/90"
+              className="rounded-full px-8 py-7 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-primary to-violet-500 hover:from-primary hover:to-violet-500/90 text-base"
             >
-              <Send className="h-4 w-4 mr-2" />
+              <Send className="h-4 w-4 mr-3" />
               Contact Me
             </Button>
           </AnimatedElement>
@@ -276,10 +286,10 @@ export default function Hero() {
             <Button
               asChild
               variant="outline"
-              className="rounded-full px-6 py-6 shadow-md hover:shadow-lg transition-all duration-300 bg-transparent border-white/20 hover:border-white/40"
+              className="rounded-full px-8 py-7 shadow-md hover:shadow-lg transition-all duration-300 bg-transparent border-white/20 hover:border-white/40 text-base"
             >
               <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                <FileText className="h-4 w-4" />
+                <FileText className="h-4 w-4 mr-1" />
                 <span>Resume</span>
               </a>
             </Button>
@@ -289,9 +299,9 @@ export default function Hero() {
             <Button
               onClick={scrollToProjects}
               variant="outline"
-              className="rounded-full px-6 py-6 shadow-md hover:shadow-lg transition-all duration-300 bg-transparent border-white/20 hover:border-white/40"
+              className="rounded-full px-8 py-7 shadow-md hover:shadow-lg transition-all duration-300 bg-transparent border-white/20 hover:border-white/40 text-base"
             >
-              <ArrowDown className="h-4 w-4 mr-2" />
+              <ArrowDown className="h-4 w-4 mr-3" />
               View Projects
             </Button>
           </AnimatedElement>
@@ -302,9 +312,9 @@ export default function Hero() {
           variants={fadeUpVariants}
           threshold={0.1}
           delay={0.7}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-12 left-1/2 -translate-x-1/2"
         >
-          <div className="flex flex-col items-center gap-2 text-white/70 cursor-pointer" onClick={scrollToProjects}>
+          <div className="flex flex-col items-center gap-3 text-white/70 cursor-pointer" onClick={scrollToProjects}>
             <span className="text-sm font-light">Scroll Down</span>
             <motion.div
               animate={{ y: [0, 10, 0] }}

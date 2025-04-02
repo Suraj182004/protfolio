@@ -38,8 +38,7 @@ export default function Contact() {
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -55,7 +54,6 @@ export default function Contact() {
     // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false);
-      setSubmitSuccess(true);
       
       // Reset form
       setFormData({
@@ -63,11 +61,6 @@ export default function Contact() {
         email: '',
         message: ''
       });
-      
-      // Reset success message after 3 seconds
-      setTimeout(() => {
-        setSubmitSuccess(false);
-      }, 3000);
     }, 1500);
   };
 

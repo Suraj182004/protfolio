@@ -25,11 +25,9 @@ interface UseScrollAnimationReturn {
  * @returns Object containing the ref to attach to the element, animation controls, and inView state
  */
 export function useScrollAnimation({
-  variants,
   threshold = 0.2,
   once = true,
-  delay = 0,
-}: UseScrollAnimationProps): UseScrollAnimationReturn {
+}: Omit<UseScrollAnimationProps, 'variants' | 'delay'>): UseScrollAnimationReturn {
   const controls = useAnimation();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { 
