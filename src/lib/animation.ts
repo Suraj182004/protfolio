@@ -6,14 +6,17 @@ export type AnimationVariants = Variants;
 export const fadeUpVariants: AnimationVariants = {
   hidden: {
     opacity: 0,
-    y: 40,
+    y: 50,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
-      ease: [0.2, 0.65, 0.3, 0.9],
+      duration: 2.0,
+      ease: [0.06, 0.4, 0.2, 0.95],
+      type: "spring",
+      damping: 15,
+      stiffness: 50,
     },
   },
 };
@@ -22,12 +25,19 @@ export const fadeUpVariants: AnimationVariants = {
 export const fadeInVariants: AnimationVariants = {
   hidden: {
     opacity: 0,
+    scale: 0.97,
   },
   visible: {
     opacity: 1,
+    scale: 1,
     transition: {
-      duration: 0.5,
-      ease: 'easeInOut',
+      duration: 3.5,
+      ease: [0.01, 0.2, 0.1, 0.99],
+      type: "spring",
+      damping: 25,
+      stiffness: 15,
+      mass: 2,
+      delay: 0.3,
     },
   },
 };
@@ -38,7 +48,8 @@ export const staggerContainerVariants: AnimationVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.4,
+      delayChildren: 0.2,
     },
   },
 };
@@ -47,14 +58,17 @@ export const staggerContainerVariants: AnimationVariants = {
 export const scaleUpVariants: AnimationVariants = {
   hidden: {
     opacity: 0,
-    scale: 0.85,
+    scale: 0.8,
   },
   visible: {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 0.5,
-      ease: [0.2, 0.65, 0.3, 0.9],
+      duration: 1.5,
+      ease: [0.06, 0.4, 0.2, 0.95],
+      type: "spring",
+      damping: 15,
+      stiffness: 80,
     },
   },
 };
@@ -63,14 +77,17 @@ export const scaleUpVariants: AnimationVariants = {
 export const slideInRightVariants: AnimationVariants = {
   hidden: {
     opacity: 0,
-    x: 40,
+    x: 50,
   },
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.6,
-      ease: [0.2, 0.65, 0.3, 0.9],
+      duration: 1.8,
+      ease: [0.06, 0.4, 0.2, 0.95],
+      type: "spring",
+      damping: 15,
+      stiffness: 50,
     },
   },
 };
@@ -79,14 +96,17 @@ export const slideInRightVariants: AnimationVariants = {
 export const slideInLeftVariants: AnimationVariants = {
   hidden: {
     opacity: 0,
-    x: -40,
+    x: -50,
   },
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.6,
-      ease: [0.2, 0.65, 0.3, 0.9],
+      duration: 1.8,
+      ease: [0.06, 0.4, 0.2, 0.95],
+      type: "spring",
+      damping: 15,
+      stiffness: 50,
     },
   },
 }; 

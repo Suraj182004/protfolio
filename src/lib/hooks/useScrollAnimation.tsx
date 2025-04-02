@@ -27,7 +27,7 @@ interface UseScrollAnimationReturn {
 export function useScrollAnimation({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   variants,
-  threshold = 0.2,
+  threshold = 0.05,
   once = true,
   delay = 0,
 }: UseScrollAnimationProps): UseScrollAnimationReturn {
@@ -40,7 +40,8 @@ export function useScrollAnimation({
 
   useEffect(() => {
     if (inView) {
-      controls.start('visible', { delay: delay });
+      const animationDelay = delay + 1.0;
+      controls.start('visible', { delay: animationDelay });
     } else if (!once) {
       controls.start('hidden');
     }

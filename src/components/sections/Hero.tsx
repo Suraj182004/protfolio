@@ -133,30 +133,30 @@ export default function Hero() {
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden" ref={heroRef}>
       {/* Fluid background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-teal-900 via-indigo-800 to-indigo-700 z-0">
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-indigo-900 to-purple-900 z-0">
         {bubbles.map(bubble => (
           <div 
             key={bubble.id}
-            className="absolute rounded-full bg-primary/15 backdrop-blur-md"
+            className="absolute rounded-full bg-gradient-to-r from-cyan-500/10 to-purple-500/10 backdrop-blur-sm"
             style={{
               left: `${bubble.x}%`,
               top: `${bubble.y}%`,
               width: `${bubble.size}px`,
               height: `${bubble.size}px`,
-              opacity: 0.2 + Math.random() * 0.2,
+              opacity: 0.2 + Math.random() * 0.3,
               transform: `scale(${1 + Math.sin(Date.now() * 0.001 + bubble.id) * 0.1})`,
-              transition: 'transform 0.5s ease-out'
+              transition: 'transform 0.8s ease-out, opacity 1s ease-in-out'
             }}
           />
         ))}
       </div>
       
       {/* Dark overlay to improve text visibility */}
-      <div className="absolute inset-0 bg-black/25 z-1"></div>
+      <div className="absolute inset-0 bg-black/20 backdrop-filter backdrop-blur-[1px] z-1"></div>
       
       {/* Cursor following gradient */}
       <motion.div 
-        className="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-r from-primary/40 to-violet-500/40 blur-3xl opacity-50 pointer-events-none z-1"
+        className="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-r from-cyan-500/30 to-purple-600/30 blur-3xl opacity-60 pointer-events-none z-1"
         animate={{
           x: mousePosition.x - 300,
           y: mousePosition.y - 300,
@@ -176,7 +176,7 @@ export default function Hero() {
             threshold={0.1}
           >
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-white drop-shadow-md">
-              Hi, I&apos;m <span className="bg-gradient-to-r from-primary to-violet-400 text-transparent bg-clip-text">
+              Hi, I&apos;m <span className="bg-gradient-to-r from-cyan-400 to-purple-500 text-transparent bg-clip-text font-extrabold drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
                 {typedName}<span className={isTypingName ? "animate-blink" : "opacity-0"}>|</span>
               </span>
             </h1>
@@ -199,15 +199,15 @@ export default function Hero() {
             delay={0.3}
             className="h-12 flex items-center justify-center mb-8"
           >
-            <span className="inline-block text-lg md:text-xl text-primary-300 font-light">
-              <span className="text-white/70">I specialize in </span>
-              <span className="text-primary font-medium">{typedText}</span>
+            <span className="inline-block text-lg md:text-xl font-light">
+              <span className="text-white/80">I specialize in </span>
+              <span className="text-cyan-300 font-medium">{typedText}</span>
               <span className="animate-blink">|</span>
             </span>
           </AnimatedElement>
         </div>
         
-        {/* Social Media Links */}
+        {/* Social Media Links - Fixed consistent sizing and spacing */}
         <AnimatedGroup
           variants={{
             hidden: {},
@@ -226,7 +226,7 @@ export default function Hero() {
               href="https://github.com/yourusername" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="bg-white/10 hover:bg-white/20 p-3.5 rounded-full transition-all duration-300 text-white backdrop-blur-sm hover:text-primary hover:scale-110 shadow-lg"
+              className="inline-flex items-center justify-center w-12 h-12 bg-white/15 hover:bg-white/25 rounded-full transition-all duration-300 text-white backdrop-blur-sm hover:text-cyan-400 hover:scale-110 shadow-lg"
               aria-label="GitHub"
             >
               <Github className="h-5 w-5" />
@@ -238,7 +238,7 @@ export default function Hero() {
               href="https://linkedin.com/in/yourusername" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="bg-white/10 hover:bg-white/20 p-3.5 rounded-full transition-all duration-300 text-white backdrop-blur-sm hover:text-primary hover:scale-110 shadow-lg"
+              className="inline-flex items-center justify-center w-12 h-12 bg-white/15 hover:bg-white/25 rounded-full transition-all duration-300 text-white backdrop-blur-sm hover:text-blue-400 hover:scale-110 shadow-lg"
               aria-label="LinkedIn"
             >
               <Linkedin className="h-5 w-5" />
@@ -250,7 +250,7 @@ export default function Hero() {
               href="https://twitter.com/yourusername" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="bg-white/10 hover:bg-white/20 p-3.5 rounded-full transition-all duration-300 text-white backdrop-blur-sm hover:text-primary hover:scale-110 shadow-lg"
+              className="inline-flex items-center justify-center w-12 h-12 bg-white/15 hover:bg-white/25 rounded-full transition-all duration-300 text-white backdrop-blur-sm hover:text-blue-500 hover:scale-110 shadow-lg"
               aria-label="Twitter"
             >
               <Twitter className="h-5 w-5" />
@@ -258,7 +258,7 @@ export default function Hero() {
           </AnimatedElement>
         </AnimatedGroup>
         
-        {/* Buttons */}
+        {/* Buttons - Enhanced text visibility and styling */}
         <AnimatedGroup
           variants={{
             hidden: {},
@@ -275,7 +275,7 @@ export default function Hero() {
           <AnimatedElement variants={slideInLeftVariants}>
             <Button 
               onClick={scrollToContact}
-              className="rounded-full px-8 py-7 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-primary to-violet-500 hover:from-primary hover:to-violet-500/90 text-base"
+              className="rounded-full px-8 py-7 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white font-medium text-base"
             >
               <Send className="h-4 w-4 mr-3" />
               Contact Me
@@ -286,7 +286,7 @@ export default function Hero() {
             <Button
               asChild
               variant="outline"
-              className="rounded-full px-8 py-7 shadow-md hover:shadow-lg transition-all duration-300 bg-transparent border-white/20 hover:border-white/40 text-base"
+              className="rounded-full px-8 py-7 shadow-lg hover:shadow-xl transition-all duration-300 bg-white/10 backdrop-blur-sm border-white/30 hover:border-white/50 text-white font-medium text-base"
             >
               <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                 <FileText className="h-4 w-4 mr-1" />
@@ -299,7 +299,7 @@ export default function Hero() {
             <Button
               onClick={scrollToProjects}
               variant="outline"
-              className="rounded-full px-8 py-7 shadow-md hover:shadow-lg transition-all duration-300 bg-transparent border-white/20 hover:border-white/40 text-base"
+              className="rounded-full px-8 py-7 shadow-lg hover:shadow-xl transition-all duration-300 bg-white/10 backdrop-blur-sm border-white/30 hover:border-white/50 text-white font-medium text-base"
             >
               <ArrowDown className="h-4 w-4 mr-3" />
               View Projects

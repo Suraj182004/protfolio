@@ -20,9 +20,9 @@ interface AnimatedElementProps extends React.HTMLAttributes<HTMLDivElement> {
 export function AnimatedElement({
   children,
   variants = fadeUpVariants,
-  threshold = 0.2,
+  threshold = 0.05,
   once = true,
-  delay = 0,
+  delay = 0.4,
   as = 'div',
   className,
   motionProps,
@@ -59,9 +59,9 @@ export function AnimatedElement({
 export function AnimatedGroup({
   children,
   variants,
-  threshold = 0.2,
+  threshold = 0.05,
   once = true,
-  delay = 0,
+  delay = 0.4,
   as = 'div',
   className,
   motionProps,
@@ -72,7 +72,7 @@ export function AnimatedGroup({
       hidden: {},
       visible: {
         transition: {
-          staggerChildren: 0.1,
+          staggerChildren: 0.3,
         },
       },
     },
