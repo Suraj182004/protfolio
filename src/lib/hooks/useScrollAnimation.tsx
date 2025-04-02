@@ -25,11 +25,14 @@ interface UseScrollAnimationReturn {
  * @returns Object containing the ref to attach to the element, animation controls, and inView state
  */
 export function useScrollAnimation({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  variants,
   threshold = 0.2,
   once = true,
-}: Omit<UseScrollAnimationProps, 'variants' | 'delay'>): UseScrollAnimationReturn {
+  delay = 0,
+}: UseScrollAnimationProps): UseScrollAnimationReturn {
   const controls = useAnimation();
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { 
     amount: threshold,
     once 
@@ -37,11 +40,15 @@ export function useScrollAnimation({
 
   useEffect(() => {
     if (inView) {
-      controls.start('visible');
+      controls.start('visible', { delay: delay });
     } else if (!once) {
       controls.start('hidden');
     }
-  }, [controls, inView, once]);
+  }, [controls, inView, once, delay]);
 
-  return { ref, controls, inView };
+  return { 
+    ref: ref as React.RefObject<HTMLElement>,
+    controls, 
+    inView 
+  };
 } 

@@ -1,9 +1,6 @@
-import { Variant } from 'framer-motion';
+import { Variants } from 'framer-motion';
 
-export interface AnimationVariants {
-  hidden: Variant;
-  visible: Variant;
-}
+export type AnimationVariants = Variants;
 
 // Fade up animation - good for sections and cards
 export const fadeUpVariants: AnimationVariants = {

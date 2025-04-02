@@ -35,7 +35,8 @@ export function AnimatedElement({
     delay,
   });
 
-  const MotionTag = motion[as as keyof typeof motion];
+  // @ts-expect-error - framer-motion typing issue
+  const MotionTag = motion[as];
 
   return (
     <MotionTag
@@ -80,7 +81,8 @@ export function AnimatedGroup({
     delay,
   });
 
-  const MotionTag = motion[as as keyof typeof motion];
+  // @ts-expect-error - framer-motion typing issue
+  const MotionTag = motion[as];
 
   return (
     <MotionTag
