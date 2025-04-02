@@ -1,9 +1,9 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, Text, useTexture, MeshDistortMaterial } from '@react-three/drei';
-import { Vector3, Mesh } from 'three';
+import { OrbitControls, PerspectiveCamera, Text, MeshDistortMaterial } from '@react-three/drei';
+import { Mesh } from 'three';
 
 function AnimatedSphere({ position, color, speed, distort }: { position: [number, number, number], color: string, speed: number, distort: number }) {
   const ref = useRef<Mesh>(null!);

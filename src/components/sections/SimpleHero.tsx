@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowDown, ChevronRight, ExternalLink } from 'lucide-react';
+import { ChevronRight, ExternalLink } from 'lucide-react';
 import { AnimatedElement } from '@/components/ui/AnimatedElement';
 import { fadeUpVariants } from '@/lib/animation';
 
