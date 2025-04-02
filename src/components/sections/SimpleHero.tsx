@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, ChevronRight, ExternalLink } from 'lucide-react';
+import { AnimatedElement } from '@/components/ui/AnimatedElement';
+import { fadeUpVariants } from '@/lib/animation';
 
 export default function SimpleHero() {
   const scrollToContact = () => {
@@ -20,14 +22,13 @@ export default function SimpleHero() {
       
       <div className="container mx-auto px-4 max-w-full relative z-10">
         <div className="max-w-5xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+          <AnimatedElement
+            variants={fadeUpVariants}
+            threshold={0.1}
           >
             <span className="inline-block text-primary/90 font-medium mb-6 bg-primary/10 px-5 py-2 rounded-full text-sm">FULL STACK DEVELOPER</span>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-tight leading-tight">
-              Hi, I'm <span className="gradient-text relative inline-block">
+              Hi, I&apos;m <span className="gradient-text relative inline-block">
                 Suraj Yaligar
                 <motion.span 
                   className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary/60 to-primary rounded-full"
@@ -37,22 +38,22 @@ export default function SimpleHero() {
                 ></motion.span>
               </span>
             </h1>
-          </motion.div>
+          </AnimatedElement>
           
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+          <AnimatedElement
+            variants={fadeUpVariants}
+            threshold={0.1}
+            delay={0.3}
           >
             <h2 className="text-xl md:text-2xl lg:text-3xl font-medium mb-12 text-foreground/90 drop-shadow-md max-w-3xl mx-auto leading-relaxed">
               Creating exceptional digital experiences with modern web technologies and creative problem-solving
             </h2>
-          </motion.div>
+          </AnimatedElement>
           
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}
+          <AnimatedElement
+            variants={fadeUpVariants}
+            threshold={0.1}
+            delay={0.6}
             className="flex flex-col sm:flex-row gap-8 justify-center"
           >
             <Button 
@@ -74,12 +75,12 @@ export default function SimpleHero() {
                 <ExternalLink className="h-5 w-5" />
               </a>
             </Button>
-          </motion.div>
+          </AnimatedElement>
           
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.9, ease: "easeOut" }}
+          <AnimatedElement
+            variants={fadeUpVariants}
+            threshold={0.1}
+            delay={0.9}
             className="mt-24 flex justify-center gap-10"
           >
             <a 
@@ -118,7 +119,7 @@ export default function SimpleHero() {
                 <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
               </svg>
             </a>
-          </motion.div>
+          </AnimatedElement>
         </div>
         
         <motion.div

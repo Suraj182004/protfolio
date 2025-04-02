@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Twitter, Mail, ExternalLink, Heart, ArrowUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { AnimatedElement } from '@/components/ui/AnimatedElement';
+import { fadeUpVariants } from '@/lib/animation';
 
 const footerLinks = [
   { name: 'Home', href: '#home' },
@@ -51,11 +53,9 @@ export default function Footer() {
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-primary/10 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3 z-0"></div>
       
       {/* Scroll to top button */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+      <AnimatedElement 
+        variants={fadeUpVariants}
+        threshold={0.1}
         className="absolute right-8 -top-6 z-20"
       >
         <Button 
@@ -65,15 +65,13 @@ export default function Footer() {
         >
           <ArrowUp className="h-5 w-5" />
         </Button>
-      </motion.div>
+      </AnimatedElement>
       
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
         {/* Social Links Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <AnimatedElement
+          variants={fadeUpVariants}
+          threshold={0.1}
           className="flex justify-center mb-12"
         >
           <div className="flex gap-4 p-3 rounded-full bg-background/80 backdrop-blur-md shadow-lg border border-border/50">
@@ -90,15 +88,13 @@ export default function Footer() {
               </a>
             ))}
           </div>
-        </motion.div>
+        </AnimatedElement>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-12">
           {/* Column 1: Logo & Description */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+          <AnimatedElement
+            variants={fadeUpVariants}
+            threshold={0.1}
             className="flex flex-col"
           >
             <Link href="#home" className="text-2xl font-bold tracking-tight mb-4 inline-block">
@@ -108,14 +104,13 @@ export default function Footer() {
             <p className="text-foreground/70 mb-6 max-w-md leading-relaxed">
               A passionate full-stack developer focused on creating intuitive and engaging web experiences with modern technologies.
             </p>
-          </motion.div>
+          </AnimatedElement>
           
           {/* Column 2: Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+          <AnimatedElement
+            variants={fadeUpVariants}
+            threshold={0.1}
+            delay={0.2}
             className="flex flex-col md:items-center"
           >
             <h3 className="text-lg font-semibold mb-6 text-foreground relative inline-block">
@@ -144,14 +139,13 @@ export default function Footer() {
                 <ExternalLink className="h-3.5 w-3.5 ml-1.5" />
               </a>
             </nav>
-          </motion.div>
+          </AnimatedElement>
           
           {/* Column 3: Contact */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+          <AnimatedElement
+            variants={fadeUpVariants}
+            threshold={0.1}
+            delay={0.4}
             className="flex flex-col md:items-end"
           >
             <h3 className="text-lg font-semibold mb-6 text-foreground relative inline-block">
@@ -177,19 +171,18 @@ export default function Footer() {
                 href="#contact" 
                 className="text-primary hover:text-primary/80 transition-colors duration-300 font-semibold flex items-center gap-1 mt-1 group md:justify-end"
               >
-                <span>Let's connect</span>
+                <span>Let&apos;s connect</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
               </Link>
             </div>
-          </motion.div>
+          </AnimatedElement>
         </div>
         
         {/* Bottom Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+        <AnimatedElement
+          variants={fadeUpVariants}
+          threshold={0.1}
+          delay={0.6}
           className="border-t border-border/20 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center"
         >
           <p className="text-foreground/60 text-sm mb-4 md:mb-0 text-center md:text-left">
@@ -198,7 +191,7 @@ export default function Footer() {
           <p className="text-foreground/60 text-sm flex items-center gap-1.5">
             Made with <Heart className="h-3.5 w-3.5 text-red-500 animate-pulse" /> using Next.js & TailwindCSS
           </p>
-        </motion.div>
+        </AnimatedElement>
       </div>
     </footer>
   );

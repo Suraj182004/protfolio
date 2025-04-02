@@ -1,10 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Briefcase, Trophy, Calendar, MapPin, CheckCircle2 } from 'lucide-react';
+import { AnimatedElement, AnimatedGroup } from '@/components/ui/AnimatedElement';
+import { fadeUpVariants, fadeInVariants, slideInLeftVariants } from '@/lib/animation';
 
 export default function Experience() {
   return (
@@ -14,11 +15,9 @@ export default function Experience() {
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-primary/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 z-0"></div>
       
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true, margin: "-100px" }}
+        <AnimatedElement
+          variants={fadeUpVariants}
+          threshold={0.1}
           className="text-center mb-20"
         >
           <span className="inline-block text-primary font-medium mb-3 bg-primary/10 px-4 py-1.5 rounded-full text-sm">MY JOURNEY</span>
@@ -27,13 +26,12 @@ export default function Experience() {
           <p className="max-w-2xl mx-auto text-foreground/80 text-lg md:text-xl leading-relaxed">
             My professional experience and notable achievements
           </p>
-        </motion.div>
+        </AnimatedElement>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+        <AnimatedElement
+          variants={fadeUpVariants}
+          threshold={0.1}
+          delay={0.2}
           className="max-w-5xl mx-auto"
         >
           <Tabs defaultValue="work" className="w-full">
@@ -59,91 +57,113 @@ export default function Experience() {
             </TabsList>
             
             <TabsContent value="work">
-              <Card className="border border-primary/10 shadow-lg bg-background/50 backdrop-blur-sm rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300">
-                <CardHeader className="pb-0 pt-8 px-8">
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
-                    <div>
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="bg-primary/10 p-2 rounded-lg">
-                          <Briefcase className="h-5 w-5 text-primary" />
+              <AnimatedElement variants={fadeUpVariants} threshold={0.2}>
+                <Card className="border border-primary/10 shadow-lg bg-background/50 backdrop-blur-sm rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                  <CardHeader className="pb-0 pt-8 px-8">
+                    <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                      <div>
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="bg-primary/10 p-2 rounded-lg">
+                            <Briefcase className="h-5 w-5 text-primary" />
+                          </div>
+                          <CardTitle className="text-2xl font-bold gradient-text">Full Stack Intern</CardTitle>
                         </div>
-                        <CardTitle className="text-2xl font-bold gradient-text">Full Stack Intern</CardTitle>
+                        <CardDescription className="text-lg font-medium text-primary mb-1">
+                          ADAA Jaipur
+                        </CardDescription>
                       </div>
-                      <CardDescription className="text-lg font-medium text-primary mb-1">
-                        ADAA Jaipur
-                      </CardDescription>
-                    </div>
-                    <div className="space-y-2">
-                      <Badge variant="outline" className="flex items-center gap-1.5 w-fit px-3 py-1.5 border-primary/20 bg-primary/5 text-primary">
-                        <Calendar className="h-3.5 w-3.5" />
-                        <span>Mar 2024 - Present</span>
-                      </Badge>
-                      <Badge variant="outline" className="flex items-center gap-1.5 w-fit px-3 py-1.5 border-primary/20 bg-primary/5 text-primary">
-                        <MapPin className="h-3.5 w-3.5" />
-                        <span>Remote</span>
-                      </Badge>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="p-8">
-                  <div className="space-y-6">
-                    <div className="prose prose-sm max-w-none">
-                      <p className="text-foreground/80 leading-relaxed mb-4">
-                        Working as a Full Stack Intern at ADAA Jaipur, I'm responsible for developing and maintaining their e-commerce platform for women's clothing. My role involves both frontend and backend development, ensuring a seamless shopping experience for customers.
-                      </p>
-                    </div>
-                    
-                    <div>
-                      <h4 className="text-lg font-semibold mb-3 relative inline-block">
-                        Key Responsibilities
-                        <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-gradient-to-r from-primary to-violet-500 rounded-full"></span>
-                      </h4>
-                      <ul className="space-y-3 list-none pl-0">
-                        {[
-                          "Developed and maintained the ADAA Jaipur e-commerce platform, working on frontend and backend",
-                          "Implemented user authentication & authorization using JWT",
-                          "Designed and developed RESTful APIs",
-                          "Integrated secure payment gateways",
-                          "Managed and optimized the database",
-                          "Ensured a responsive user experience across devices"
-                        ].map((item, index) => (
-                          <motion.li 
-                            key={index}
-                            initial={{ opacity: 0, x: -10 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.3, delay: index * 0.1 }}
-                            viewport={{ once: true }}
-                            className="flex items-start gap-3 text-foreground/80 group hover:text-foreground transition-colors duration-300"
-                          >
-                            <div className="bg-primary/10 rounded-full p-1 mt-0.5 flex-shrink-0 group-hover:bg-primary/20 transition-colors duration-300">
-                              <CheckCircle2 className="h-4 w-4 text-primary" />
-                            </div>
-                            <span>{item}</span>
-                          </motion.li>
-                        ))}
-                      </ul>
-                    </div>
-                    
-                    <div>
-                      <h4 className="text-lg font-semibold mb-3 relative inline-block">
-                        Technologies Used
-                        <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-gradient-to-r from-primary to-violet-500 rounded-full"></span>
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {['React', 'Node.js', 'MongoDB', 'Express', 'JWT', 'TailwindCSS', 'RESTful APIs'].map((tech, index) => (
-                          <Badge key={tech} variant="secondary" className="px-3 py-1.5 text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
-                            {tech}
-                          </Badge>
-                        ))}
+                      <div className="space-y-2">
+                        <Badge variant="outline" className="flex items-center gap-1.5 w-fit px-3 py-1.5 border-primary/20 bg-primary/5 text-primary">
+                          <Calendar className="h-3.5 w-3.5" />
+                          <span>Mar 2024 - Present</span>
+                        </Badge>
+                        <Badge variant="outline" className="flex items-center gap-1.5 w-fit px-3 py-1.5 border-primary/20 bg-primary/5 text-primary">
+                          <MapPin className="h-3.5 w-3.5" />
+                          <span>Remote</span>
+                        </Badge>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardHeader>
+                  <CardContent className="p-8">
+                    <div className="space-y-6">
+                      <div className="prose prose-sm max-w-none">
+                        <p className="text-foreground/80 leading-relaxed mb-4">
+                          Working as a Full Stack Intern at ADAA Jaipur, I&apos;m responsible for developing and maintaining their e-commerce platform for women&apos;s clothing. My role involves both frontend and backend development, ensuring a seamless shopping experience for customers.
+                        </p>
+                      </div>
+                      
+                      <div>
+                        <h4 className="text-lg font-semibold mb-3 relative inline-block">
+                          Key Responsibilities
+                          <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-gradient-to-r from-primary to-violet-500 rounded-full"></span>
+                        </h4>
+                        <AnimatedGroup 
+                          className="space-y-3 list-none pl-0"
+                          variants={{
+                            hidden: {},
+                            visible: {
+                              transition: {
+                                staggerChildren: 0.1
+                              }
+                            }
+                          }}
+                          threshold={0.2}
+                        >
+                          {[
+                            "Developed and maintained the ADAA Jaipur e-commerce platform, working on frontend and backend",
+                            "Implemented user authentication & authorization using JWT",
+                            "Designed and developed RESTful APIs",
+                            "Integrated secure payment gateways",
+                            "Managed and optimized the database",
+                            "Ensured a responsive user experience across devices"
+                          ].map((item, index) => (
+                            <AnimatedElement
+                              key={index}
+                              variants={slideInLeftVariants}
+                              as="li"
+                              className="flex items-start gap-3 text-foreground/80 group hover:text-foreground transition-colors duration-300"
+                            >
+                              <div className="bg-primary/10 rounded-full p-1 mt-0.5 flex-shrink-0 group-hover:bg-primary/20 transition-colors duration-300">
+                                <CheckCircle2 className="h-4 w-4 text-primary" />
+                              </div>
+                              <span>{item}</span>
+                            </AnimatedElement>
+                          ))}
+                        </AnimatedGroup>
+                      </div>
+                      
+                      <div>
+                        <h4 className="text-lg font-semibold mb-3 relative inline-block">
+                          Technologies Used
+                          <span className="absolute -bottom-1 left-0 w-12 h-0.5 bg-gradient-to-r from-primary to-violet-500 rounded-full"></span>
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {['React', 'Node.js', 'MongoDB', 'Express', 'JWT', 'TailwindCSS', 'RESTful APIs'].map((tech) => (
+                            <Badge key={tech} variant="secondary" className="px-3 py-1.5 text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+                              {tech}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </AnimatedElement>
             </TabsContent>
             
             <TabsContent value="achievements">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <AnimatedGroup 
+                className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                variants={{
+                  hidden: {},
+                  visible: {
+                    transition: {
+                      staggerChildren: 0.1
+                    }
+                  }
+                }}
+                threshold={0.1}
+              >
                 {[
                   {
                     title: "Winner - AR/VR Track @ Hack The Mountain",
@@ -170,12 +190,9 @@ export default function Experience() {
                     color: "from-green-500 to-emerald-500"
                   }
                 ].map((achievement, index) => (
-                  <motion.div
+                  <AnimatedElement
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    viewport={{ once: true }}
+                    variants={fadeUpVariants}
                   >
                     <Card className="border border-primary/10 shadow-lg hover:shadow-xl transition-all duration-500 bg-background/50 backdrop-blur-sm rounded-xl overflow-hidden h-full">
                       <CardHeader className="p-6 pb-4">
@@ -190,14 +207,13 @@ export default function Experience() {
                         </div>
                       </CardHeader>
                     </Card>
-                  </motion.div>
+                  </AnimatedElement>
                 ))}
                 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.5 }}
-                  viewport={{ once: true }}
+                <AnimatedElement
+                  variants={fadeInVariants}
+                  threshold={0.2}
+                  delay={0.3}
                   className="md:col-span-2"
                 >
                   <Card className="border border-primary/10 shadow-lg hover:shadow-xl transition-all duration-500 bg-background/50 backdrop-blur-sm rounded-xl overflow-hidden">
@@ -213,11 +229,11 @@ export default function Experience() {
                       </div>
                     </CardHeader>
                   </Card>
-                </motion.div>
-              </div>
+                </AnimatedElement>
+              </AnimatedGroup>
             </TabsContent>
           </Tabs>
-        </motion.div>
+        </AnimatedElement>
       </div>
     </section>
   );

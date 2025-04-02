@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, X, FileText, ExternalLink, Github, Linkedin, Twitter } from 'lucide-react';
+import { AnimatedElement } from '@/components/ui/AnimatedElement';
+import { fadeUpVariants, slideInRightVariants } from '@/lib/animation';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -142,11 +144,10 @@ export default function Navbar() {
                 
                 <nav className="flex flex-col gap-6 mt-6">
                   {navLinks.map((link, index) => (
-                    <motion.div
+                    <AnimatedElement
                       key={link.name}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                      variants={slideInRightVariants}
+                      delay={index * 0.1}
                     >
                       <Link
                         href={link.href}
@@ -162,35 +163,40 @@ export default function Navbar() {
                         )}
                         {link.name}
                       </Link>
-                    </motion.div>
+                    </AnimatedElement>
                   ))}
                 </nav>
                 
                 <div className="mt-auto mb-8">
-                  <Button 
-                    asChild 
-                    className="w-full rounded-full py-6 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-primary to-violet-500 hover:from-primary hover:to-violet-500/90"
+                  <AnimatedElement
+                    variants={fadeUpVariants}
+                    delay={0.5}
                   >
-                    <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
-                      <FileText className="h-4 w-4" />
-                      <span>Download Resume</span>
-                    </a>
-                  </Button>
-                  
-                  <div className="flex justify-center gap-6 mt-8">
-                    {socialLinks.map((link) => (
-                      <a 
-                        key={link.name}
-                        href={link.href} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className={`p-3 rounded-full transition-all duration-300 ${link.color}`}
-                        aria-label={link.name}
-                      >
-                        {link.icon}
+                    <Button 
+                      asChild 
+                      className="w-full rounded-full py-6 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-primary to-violet-500 hover:from-primary hover:to-violet-500/90"
+                    >
+                      <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                        <FileText className="h-4 w-4" />
+                        <span>Download Resume</span>
                       </a>
-                    ))}
-                  </div>
+                    </Button>
+                    
+                    <div className="flex justify-center gap-6 mt-8">
+                      {socialLinks.map((link) => (
+                        <a 
+                          key={link.name}
+                          href={link.href} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className={`p-3 rounded-full transition-all duration-300 ${link.color}`}
+                          aria-label={link.name}
+                        >
+                          {link.icon}
+                        </a>
+                      ))}
+                    </div>
+                  </AnimatedElement>
                 </div>
               </div>
             </SheetContent>

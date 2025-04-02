@@ -1,83 +1,48 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import Link from 'next/link';
+import { Card, CardContent, CardFooter, CardHeader, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, Github } from 'lucide-react';
-
-const projects = [
-  {
-    title: 'Decentralized CrowdFunding',
-    description: 'A blockchain-based platform for transparent and trustless fundraising, built with React, TailwindCSS, and Ethereum.',
-    image: '/images/projects/crowdfunding.jpg',
-    tags: ['React', 'TailwindCSS', 'Ethereum', 'Ether.js'],
-    demoLink: '#',
-    repoLink: '#',
-    highlights: [
-      'Built the UI and frontend for a decentralized crowdfunding platform.',
-      'Ensured a trustless and transparent fundraising experience.',
-      'Integrated Ethereum blockchain using Ether.js.'
-    ]
-  },
-  {
-    title: 'GharDekho - Real Estate Platform',
-    description: 'A comprehensive real estate platform with advanced search and filtering capabilities, built with React and Firebase.',
-    image: '/images/projects/ghardekho.jpg',
-    tags: ['React', 'Firebase', 'TailwindCSS'],
-    demoLink: '#',
-    repoLink: '#',
-    highlights: [
-      'Built the frontend and implemented JWT authentication.',
-      'Integrated advanced search filters for property type, price, and location.'
-    ]
-  },
-  {
-    title: 'ADAA Jaipur - Women Clothing Platform',
-    description: 'An e-commerce platform for women\'s clothing with secure payments and inventory management.',
-    image: '/images/projects/adaa.jpg',
-    tags: ['MERN', 'TailwindCSS', 'JWT'],
-    demoLink: '#',
-    repoLink: '#',
-    highlights: [
-      'Developed the backend and admin panel for a clothing e-commerce site.',
-      'Integrated secure payments and inventory management.',
-      'Designed a responsive UI using React.js and TailwindCSS.'
-    ]
-  }
-];
+import { ExternalLink, Github, ArrowRight } from 'lucide-react';
+import { AnimatedElement, AnimatedGroup } from '@/components/ui/AnimatedElement';
+import { fadeUpVariants, scaleUpVariants } from '@/lib/animation';
+import { projectsData } from '@/lib/projects-data';
 
 export default function Projects() {
-  return (
-    <section id="projects" className="py-28 md:py-36 relative">
-      {/* Background elements */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 z-0"></div>
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-primary/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 z-0"></div>
-      
-      <div className="container mx-auto px-4 max-w-6xl relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-20"
-        >
-          <span className="inline-block text-primary font-medium mb-3 bg-primary/10 px-4 py-1.5 rounded-full text-sm">MY WORK</span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 tracking-tight gradient-text">Projects</h2>
-          <div className="w-28 h-1.5 bg-gradient-to-r from-primary/60 to-violet-500/60 mx-auto mb-10 rounded-full"></div>
-          <p className="max-w-2xl mx-auto text-foreground/80 text-lg md:text-xl leading-relaxed">
-            Here are some of my recent projects that showcase my skills and experience.
-          </p>
-        </motion.div>
+  // Filter to only show featured projects
+  const featuredProjects = projectsData.filter(project => project.featured);
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12">
-          {projects.map((project, index) => (
-            <motion.div
+  return (
+    <section id="projects" className="py-24 md:py-32 bg-muted/20">
+      <div className="container mx-auto px-4 max-w-6xl">
+        <AnimatedElement
+          variants={fadeUpVariants}
+          threshold={0.1}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight gradient-text">Featured Projects</h2>
+          <p className="max-w-2xl mx-auto text-foreground/80 text-lg leading-relaxed">
+            A showcase of my recent work, ranging from web applications to design projects. Each project reflects my commitment to clean code and user-centric design.
+          </p>
+        </AnimatedElement>
+        
+        <AnimatedGroup
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
+          threshold={0.1}
+        >
+          {featuredProjects.map((project) => (
+            <AnimatedElement
               key={project.title}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.15 }}
-              viewport={{ once: true, margin: "-50px" }}
+              variants={fadeUpVariants}
               className="h-full"
             >
               <Card className="h-full flex flex-col overflow-hidden group border border-primary/10 bg-background/50 backdrop-blur-sm hover:bg-background/80 transition-all duration-500 shadow-lg hover:shadow-xl rounded-xl">
@@ -123,27 +88,23 @@ export default function Projects() {
                   </Button>
                 </CardFooter>
               </Card>
-            </motion.div>
+            </AnimatedElement>
           ))}
-        </div>
+        </AnimatedGroup>
         
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          viewport={{ once: true }}
+        <AnimatedElement
+          variants={scaleUpVariants}
+          threshold={0.1}
+          delay={0.3}
           className="text-center mt-16"
         >
-          <Button asChild variant="outline" className="rounded-full px-8 py-6 text-base border-primary/20 hover:bg-primary/5 shadow-sm">
-            <a href="#" className="flex items-center gap-2">
+          <Button asChild className="rounded-full px-8 py-6 text-base bg-gradient-to-r from-primary to-violet-500 hover:from-primary hover:to-violet-500/90 shadow-lg hover:shadow-xl transition-all duration-300">
+            <Link href="/projects" className="flex items-center gap-2">
               <span>View All Projects</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14"></path>
-                <path d="m12 5 7 7-7 7"></path>
-              </svg>
-            </a>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </Button>
-        </motion.div>
+        </AnimatedElement>
       </div>
     </section>
   );

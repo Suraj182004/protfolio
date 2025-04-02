@@ -1,13 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, Github, Linkedin, Twitter, MapPin, Send } from 'lucide-react';
+import { AnimatedElement } from '@/components/ui/AnimatedElement';
+import { fadeUpVariants, slideInLeftVariants, slideInRightVariants } from '@/lib/animation';
 
 const socialLinks = [
   { 
@@ -77,11 +78,9 @@ export default function Contact() {
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-primary/10 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3 z-0"></div>
       
       <div className="container mx-auto px-4 max-w-6xl relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
+        <AnimatedElement
+          variants={fadeUpVariants}
+          threshold={0.1}
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
@@ -89,14 +88,13 @@ export default function Contact() {
           <p className="max-w-2xl mx-auto text-foreground/80 text-lg">
             Feel free to reach out if you have any questions or would like to work together.
           </p>
-        </motion.div>
+        </AnimatedElement>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
+          <AnimatedElement
+            variants={slideInLeftVariants}
+            threshold={0.2}
+            delay={0.2}
             className="space-y-8"
           >
             <div className="bg-card/50 backdrop-blur-sm rounded-xl p-8 shadow-lg border border-primary/10 hover:shadow-xl transition-all duration-300">
@@ -158,19 +156,18 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </AnimatedElement>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            viewport={{ once: true }}
+          <AnimatedElement
+            variants={slideInRightVariants}
+            threshold={0.2}
+            delay={0.4}
           >
             <Card className="border border-primary/10 shadow-lg bg-card/50 backdrop-blur-sm hover:shadow-xl transition-all duration-300">
               <CardHeader>
                 <CardTitle className="text-2xl gradient-text">Send a Message</CardTitle>
                 <CardDescription className="text-base">
-                  I'll get back to you as soon as possible.
+                  I&apos;ll get back to you as soon as possible.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -234,7 +231,7 @@ export default function Contact() {
                 </form>
               </CardContent>
             </Card>
-          </motion.div>
+          </AnimatedElement>
         </div>
       </div>
     </section>

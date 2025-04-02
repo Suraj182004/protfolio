@@ -2,13 +2,25 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowDown, Github, Linkedin, Twitter, FileText, Send } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Twitter, FileText, Send, Terminal, Code, Database } from 'lucide-react';
 import { useEffect, useState, useRef } from 'react';
+import { AnimatedElement, AnimatedGroup } from '@/components/ui/AnimatedElement';
+import { fadeUpVariants, slideInRightVariants, slideInLeftVariants, scaleUpVariants } from '@/lib/animation';
+import Link from 'next/link';
 
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef<HTMLDivElement>(null);
   const [bubbles, setBubbles] = useState<Array<{id: number, x: number, y: number, size: number, speed: number}>>([]);
+  const [isTyping, setIsTyping] = useState(true);
+  const [typedText, setTypedText] = useState('');
+  const [currentPhrase, setCurrentPhrase] = useState(0);
+  const phrases = [
+    'Building Web Applications',
+    'Creating Mobile Solutions',
+    'Developing AI Projects',
+    'Designing UI/UX Experiences'
+  ];
 
   useEffect(() => {
     // Create initial bubbles
@@ -49,11 +61,63 @@ export default function Hero() {
     };
   }, []);
 
+  // Typing effect
+  useEffect(() => {
+    const currentPhraseText = phrases[currentPhrase];
+    
+    if (isTyping) {
+      if (typedText.length < currentPhraseText.length) {
+        const timeout = setTimeout(() => {
+          setTypedText(currentPhraseText.substring(0, typedText.length + 1));
+        }, 80);
+        return () => clearTimeout(timeout);
+      } else {
+        setIsTyping(false);
+        const timeout = setTimeout(() => {
+          setIsTyping(false);
+        }, 2000);
+        return () => clearTimeout(timeout);
+      }
+    } else {
+      if (typedText.length > 0) {
+        const timeout = setTimeout(() => {
+          setTypedText(typedText.substring(0, typedText.length - 1));
+        }, 50);
+        return () => clearTimeout(timeout);
+      } else {
+        setIsTyping(true);
+        setCurrentPhrase((currentPhrase + 1) % phrases.length);
+      }
+    }
+  }, [typedText, isTyping, currentPhrase, phrases]);
+
   const scrollToContact = () => {
     const contactSection = document.getElementById('contact');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const scrollToProjects = () => {
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Floating icons animation variants
+  const floatingIconVariants = {
+    initial: { y: 0 },
+    animate: (custom: number) => ({
+      y: [0, -15, 0],
+      transition: {
+        duration: 3,
+        repeat: Infinity,
+        repeatType: "reverse",
+        delay: custom * 0.3,
+        ease: "easeInOut"
+      }
+    })
   };
 
   return (
@@ -94,35 +158,65 @@ export default function Hero() {
           mass: 0.5
         }}
       />
+
+      {/* Floating skill icons */}
+      <div className="absolute inset-0 z-2 pointer-events-none">
+        <motion.div
+          className="absolute left-[15%] top-[30%] bg-white/10 backdrop-blur-md p-4 rounded-full shadow-xl"
+          custom={0}
+          variants={floatingIconVariants}
+          initial="initial"
+          animate="animate"
+        >
+          <Code className="h-8 w-8 text-primary/90" />
+        </motion.div>
+        <motion.div
+          className="absolute right-[20%] top-[20%] bg-white/10 backdrop-blur-md p-4 rounded-full shadow-xl"
+          custom={1}
+          variants={floatingIconVariants}
+          initial="initial"
+          animate="animate"
+        >
+          <Terminal className="h-8 w-8 text-violet-400" />
+        </motion.div>
+        <motion.div
+          className="absolute left-[25%] bottom-[25%] bg-white/10 backdrop-blur-md p-4 rounded-full shadow-xl"
+          custom={2}
+          variants={floatingIconVariants}
+          initial="initial"
+          animate="animate"
+        >
+          <Database className="h-8 w-8 text-teal-400" />
+        </motion.div>
+      </div>
       
       <div className="container mx-auto px-4 max-w-6xl relative z-10 py-20 flex flex-col items-center justify-center">
         <div className="text-center max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+          <AnimatedElement
+            variants={fadeUpVariants}
+            threshold={0.1}
           >
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 text-white drop-shadow-md">
-              Hi, I'm <span className="bg-white text-transparent bg-clip-text">Suraj Yaligar</span>
+              Hi, I&apos;m <span className="bg-white text-transparent bg-clip-text">Suraj Yaligar</span>
             </h1>
-          </motion.div>
+          </AnimatedElement>
           
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+          <AnimatedElement
+            variants={fadeUpVariants}
+            threshold={0.1}
+            delay={0.2}
           >
-            <h2 className="text-xl md:text-2xl lg:text-3xl font-medium mb-6 text-white/90 drop-shadow-md">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-medium mb-2 text-white/90 drop-shadow-md">
               Full Stack Developer & Computer Engineering Student
             </h2>
-          </motion.div>
+          </AnimatedElement>
         </div>
         
         {/* Social Media Links */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+        <AnimatedElement
+          variants={fadeUpVariants}
+          threshold={0.1}
+          delay={0.3}
           className="flex gap-5 mb-6"
         >
           <a 
@@ -152,33 +246,74 @@ export default function Hero() {
           >
             <Twitter className="h-5 w-5" />
           </a>
-        </motion.div>
+        </AnimatedElement>
         
         {/* Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+        <AnimatedGroup
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
+          threshold={0.1}
+          delay={0.5}
           className="flex flex-col sm:flex-row gap-4 mb-12"
         >
-          <Button 
-            onClick={scrollToContact}
-            className="rounded-full px-6 py-6 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-primary to-violet-500 hover:from-primary hover:to-violet-500/90"
-          >
-            <Send className="h-4 w-4 mr-2" />
-            Contact Me
-          </Button>
-          <Button
-            asChild
-            variant="outline"
-            className="rounded-full px-6 py-6 shadow-md hover:shadow-lg transition-all duration-300 bg-transparent border-white/20 hover:border-white/40"
-          >
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-              <FileText className="h-4 w-4" />
-              <span>Resume</span>
-            </a>
-          </Button>
-        </motion.div>
+          <AnimatedElement variants={slideInLeftVariants}>
+            <Button 
+              onClick={scrollToContact}
+              className="rounded-full px-6 py-6 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-primary to-violet-500 hover:from-primary hover:to-violet-500/90"
+            >
+              <Send className="h-4 w-4 mr-2" />
+              Contact Me
+            </Button>
+          </AnimatedElement>
+          
+          <AnimatedElement variants={fadeUpVariants}>
+            <Button
+              asChild
+              variant="outline"
+              className="rounded-full px-6 py-6 shadow-md hover:shadow-lg transition-all duration-300 bg-transparent border-white/20 hover:border-white/40"
+            >
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                <FileText className="h-4 w-4" />
+                <span>Resume</span>
+              </a>
+            </Button>
+          </AnimatedElement>
+          
+          <AnimatedElement variants={slideInRightVariants}>
+            <Button
+              onClick={scrollToProjects}
+              variant="outline"
+              className="rounded-full px-6 py-6 shadow-md hover:shadow-lg transition-all duration-300 bg-transparent border-white/20 hover:border-white/40"
+            >
+              <ArrowDown className="h-4 w-4 mr-2" />
+              View Projects
+            </Button>
+          </AnimatedElement>
+        </AnimatedGroup>
+        
+        {/* Scroll down indicator */}
+        <AnimatedElement
+          variants={fadeUpVariants}
+          threshold={0.1}
+          delay={0.7}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        >
+          <div className="flex flex-col items-center gap-2 text-white/70 cursor-pointer" onClick={scrollToProjects}>
+            <span className="text-sm font-light">Scroll Down</span>
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+            >
+              <ArrowDown className="h-5 w-5" />
+            </motion.div>
+          </div>
+        </AnimatedElement>
       </div>
     </section>
   );

@@ -153,6 +153,20 @@ html {
   animation: cursor-glow 3s ease-in-out infinite;
 }
 
+/* Typing cursor animation */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s infinite;
+}
+
 /* Animated background gradient */
 .animated-gradient {
   background: linear-gradient(-45deg, #6366f1, #8b5cf6, #d946ef, #ec4899);
