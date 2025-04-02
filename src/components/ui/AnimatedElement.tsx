@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { ReactNode } from 'react';
 import { motion, MotionProps } from 'framer-motion';
 import { useScrollAnimation } from '@/lib/hooks/useScrollAnimation';
