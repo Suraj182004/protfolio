@@ -131,7 +131,7 @@ export default function Navbar() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[280px] sm:w-[350px] border-l border-primary/10 p-0">
-              <div className="flex flex-col h-full bg-gradient-to-b from-background to-background/95 p-6">
+              <div className="flex flex-col h-full bg-background p-6">
                 <div className="flex justify-between items-center mb-8">
                   <Link href="#home" className="text-2xl font-bold" onClick={() => setIsOpen(false)}>
                     <span className="text-foreground">Suraj</span>
@@ -155,7 +155,7 @@ export default function Navbar() {
                         className={`text-lg font-medium hover:text-primary transition-colors py-2 flex items-center ${
                           activeSection === link.href.substring(1) 
                             ? 'text-primary' 
-                            : 'text-white'
+                            : 'text-foreground'
                         }`}
                       >
                         {activeSection === link.href.substring(1) && (
