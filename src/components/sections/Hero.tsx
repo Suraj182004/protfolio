@@ -131,7 +131,7 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden" ref={heroRef}>
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 md:pt-24" ref={heroRef}>
       {/* Fluid background */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-indigo-900 to-purple-900 z-0">
         {bubbles.map(bubble => (
