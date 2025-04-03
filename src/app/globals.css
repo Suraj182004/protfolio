@@ -3,7 +3,7 @@
 
 /* Hide horizontal scrollbar */
 html, body {
-  overflow-x: hidden;
+  @apply overflow-x-hidden scroll-smooth;
   max-width: 100%;
 }
 

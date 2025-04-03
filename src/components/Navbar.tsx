@@ -155,7 +155,7 @@ export default function Navbar() {
                         className={`text-lg font-medium hover:text-primary transition-colors py-2 flex items-center ${
                           activeSection === link.href.substring(1) 
                             ? 'text-primary' 
-                            : 'text-white/80'
+                            : 'text-white'
                         }`}
                       >
                         {activeSection === link.href.substring(1) && (
