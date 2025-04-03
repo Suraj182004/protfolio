@@ -223,7 +223,7 @@ export default function Hero() {
         >
           <AnimatedElement variants={fadeUpVariants}>
             <a 
-              href="https://github.com/yourusername" 
+              href="https://github.com/Suraj182004" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center w-12 h-12 bg-white/15 hover:bg-white/25 rounded-full transition-all duration-300 text-white backdrop-blur-sm hover:text-cyan-400 hover:scale-110 shadow-lg"
@@ -235,7 +235,7 @@ export default function Hero() {
           
           <AnimatedElement variants={fadeUpVariants}>
             <a 
-              href="https://linkedin.com/in/yourusername" 
+              href="https://www.linkedin.com/in/suraj-yaligar-83babb249/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center w-12 h-12 bg-white/15 hover:bg-white/25 rounded-full transition-all duration-300 text-white backdrop-blur-sm hover:text-blue-400 hover:scale-110 shadow-lg"
@@ -247,7 +247,7 @@ export default function Hero() {
           
           <AnimatedElement variants={fadeUpVariants}>
             <a 
-              href="https://twitter.com/yourusername" 
+              href="https://x.com/suraj_yaligar" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center w-12 h-12 bg-white/15 hover:bg-white/25 rounded-full transition-all duration-300 text-white backdrop-blur-sm hover:text-blue-500 hover:scale-110 shadow-lg"
@@ -288,7 +288,7 @@ export default function Hero() {
               variant="outline"
               className="rounded-full px-8 py-7 shadow-lg hover:shadow-xl transition-all duration-300 bg-white/10 backdrop-blur-sm border-white/30 hover:border-white/50 text-white font-medium text-base"
             >
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+              <a href="https://drive.google.com/file/d/1nXlyAYSwBeSqo1GtwvdcQQJgwu0744o7/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                 <FileText className="h-4 w-4 mr-1" />
                 <span>Resume</span>
               </a>

@@ -66,7 +66,7 @@ export default function Experience() {
                           <div className="bg-primary/10 p-2 rounded-lg">
                             <Briefcase className="h-5 w-5 text-primary" />
                           </div>
-                          <CardTitle className="text-2xl font-bold gradient-text">Full Stack Intern</CardTitle>
+                          <CardTitle className="text-2xl font-bold gradient-text">FullStack Developer Intern</CardTitle>
                         </div>
                         <CardDescription className="text-lg font-medium text-primary mb-1">
                           ADAA Jaipur
@@ -75,7 +75,7 @@ export default function Experience() {
                       <div className="space-y-2">
                         <Badge variant="outline" className="flex items-center gap-1.5 w-fit px-3 py-1.5 border-primary/20 bg-primary/5 text-primary">
                           <Calendar className="h-3.5 w-3.5" />
-                          <span>Mar 2024 - Present</span>
+                          <span>Jan 2025 - Mar 2025</span>
                         </Badge>
                         <Badge variant="outline" className="flex items-center gap-1.5 w-fit px-3 py-1.5 border-primary/20 bg-primary/5 text-primary">
                           <MapPin className="h-3.5 w-3.5" />

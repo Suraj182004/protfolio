@@ -18,19 +18,19 @@ const socialLinks = [
   { 
     name: 'GitHub', 
     icon: <Github className="h-5 w-5" />, 
-    href: 'https://github.com/yourusername',
+    href: 'https://github.com/Suraj182004',
     color: 'hover:bg-[#333]/20 hover:text-[#333] dark:hover:text-white'
   },
   { 
     name: 'LinkedIn', 
     icon: <Linkedin className="h-5 w-5" />, 
-    href: 'https://linkedin.com/in/yourusername',
+    href: 'https://www.linkedin.com/in/suraj-yaligar-83babb249/',
     color: 'hover:bg-[#0077B5]/20 hover:text-[#0077B5]'
   },
   { 
     name: 'Twitter', 
     icon: <Twitter className="h-5 w-5" />, 
-    href: 'https://twitter.com/yourusername',
+    href: 'https://x.com/SurajYaligar',
     color: 'hover:bg-[#1DA1F2]/20 hover:text-[#1DA1F2]'
   }
 ];
@@ -128,7 +128,7 @@ export default function Footer() {
                 </Link>
               ))}
               <a 
-                href="/resume.pdf" 
+                href="https://drive.google.com/file/d/1nXlyAYSwBeSqo1GtwvdcQQJgwu0744o7/view?usp=sharing" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-foreground/70 hover:text-primary transition-colors duration-300 group flex items-center mt-2"

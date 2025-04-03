@@ -76,7 +76,7 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled
           ? 'bg-background/95 backdrop-blur-md py-3 shadow-lg border-b border-primary/10 text-foreground'
           : 'bg-transparent py-5 text-white'
@@ -113,7 +113,7 @@ export default function Navbar() {
             asChild 
             className="rounded-full px-6 py-6 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-primary to-violet-500 hover:from-primary hover:to-violet-500/90 ml-2"
           >
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+            <a href="https://drive.google.com/file/d/1nXlyAYSwBeSqo1GtwvdcQQJgwu0744o7/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
               <span>Resume</span>
               <ExternalLink className="h-3.5 w-3.5 ml-1" />
@@ -147,7 +147,7 @@ export default function Navbar() {
                     <AnimatedElement
                       key={link.name}
                       variants={slideInRightVariants}
-                      delay={index * 0.1}
+                      delay={index * 0.05}
                     >
                       <Link
                         href={link.href}
@@ -170,7 +170,7 @@ export default function Navbar() {
                 <div className="mt-auto mb-8">
                   <AnimatedElement
                     variants={fadeUpVariants}
-                    delay={0.5}
+                    delay={0.3}
                   >
                     <Button 
                       asChild 
