@@ -40,8 +40,7 @@ export function useScrollAnimation({
 
   useEffect(() => {
     if (inView) {
-      const animationDelay = delay + 1.0;
-      controls.start('visible', { delay: animationDelay });
+      controls.start('visible', { delay });
     } else if (!once) {
       controls.start('hidden');
     }
